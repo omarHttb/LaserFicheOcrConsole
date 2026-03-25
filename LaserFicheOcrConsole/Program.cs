@@ -32,15 +32,15 @@ namespace LaserFicheOcrConsole
 
             try
             {
-                //if (args.Length == 0)
-                //{
-                //    Console.WriteLine("FAIL: No entryId provided");
-                //    return;
-                //}
+                if (args.Length == 0)
+                {
+                    Console.WriteLine("FAIL: No entryId provided");
+                    return;
+                }
 
-                //int entryId = int.Parse(args[0]);
+                int entryId = int.Parse(args[0]);
 
-                int entryId = 81;
+                //int entryId = 81;
 
                 RepositoryRegistration repository = new RepositoryRegistration(serverName, repoName);
 
