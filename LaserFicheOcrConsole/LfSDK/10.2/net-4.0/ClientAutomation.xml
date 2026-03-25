@@ -1,0 +1,1932 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ClientAutomation</name>
+    </assembly>
+    <members>
+        <member name="T:Laserfiche.ClientAutomation.NamespaceDoc">
+            <summary>
+            Class library for interacting with the Laserfiche Client.
+            </summary>
+        </member>
+        <member name="T:Laserfiche.ClientAutomation.ClientWindowType">
+            <summary>
+            Represents the type of the client window (main window or document viewer).
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.ClientWindowType.Unknown">
+            <summary>
+            Unknown window type.
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.ClientWindowType.Main">
+            <summary>
+            The main window (the folder tree and entry listing).
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.ClientWindowType.DocumentViewer">
+            <summary>
+            The document viewer window.
+            </summary>
+        </member>
+        <member name="T:Laserfiche.ClientAutomation.DocumentOpenType">
+            <summary>
+            The method to use when opening a document.
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.DocumentOpenType.Default">
+            <summary>
+            Use the default method.
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.DocumentOpenType.DocumentViewer">
+            <summary>
+            Open the document in the document viewer.
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.DocumentOpenType.Edoc">
+            <summary>
+            Open the electronic document portion.
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.DocumentOpenType.EdocReadOnly">
+            <summary>
+            Open the electronic document portion in read-only mode.
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.DocumentOpenType.Metadata">
+            <summary>
+            Open the metadata dialog.
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.DocumentOpenType.Preview">
+            <summary>
+            View the document in the preview pane.
+            </summary>
+        </member>
+        <member name="T:Laserfiche.ClientAutomation.PrintType">
+            <summary>
+            What portion of a document to print.
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.PrintType.Default">
+            <summary>
+            Use the default method.
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.PrintType.Edoc">
+            <summary>
+            Print the electronic document portion.
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.PrintType.Images">
+            <summary>
+            Print the image pages.
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.PrintType.ImagesAndText">
+            <summary>
+            Print the image and text pages.
+            </summary>
+        </member>
+        <member name="T:Laserfiche.ClientAutomation.DocViewerPane">
+            <summary>
+            Which panes to display when opening a document in the document viewer.
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.DocViewerPane.ImagePane">
+            <summary>
+            The image pane.
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.DocViewerPane.TextPane">
+            <summary>
+            The text pane.
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.DocViewerPane.MetadataPane">
+            <summary>
+            The metadata pane.
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.DocViewerPane.ThumbnailPane">
+            <summary>
+            The thumbnail pane.
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.DocViewerPane.AnnotationPane">
+            <summary>
+            The annotation list pane.
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.DocViewerPane.EdocPane">
+            <summary>
+            The electronic document pane (PDF only).
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.DocViewerPane.BusinessProcessPane">
+            <summary>
+            The business process pane.
+            </summary>
+        </member>
+        <member name="T:Laserfiche.ClientAutomation.MetadataTab">
+            <summary>
+            Which metadata tabs to display in the metadata dialog or metadata pane.
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.MetadataTab.Fields">
+            <summary>
+            The template fields tab.
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.MetadataTab.Tags">
+            <summary>
+            The tags tab.
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.MetadataTab.Links">
+            <summary>
+            The links tab.
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.MetadataTab.Versions">
+            <summary>
+            The versions tab.
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.MetadataTab.Signatures">
+            <summary>
+            The digital signatures tab.
+            </summary>
+        </member>
+        <member name="T:Laserfiche.ClientAutomation.ScanMode">
+            <summary>
+            Whether to open scanning in basic or standard mode.
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.ScanMode.Default">
+            <summary>
+            Use the default or prompt the user if no default is saved. 
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.ScanMode.Basic">
+            <summary>
+            Basic mode.
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.ScanMode.Standard">
+            <summary>
+            Standard mode.
+            </summary>
+        </member>
+        <member name="T:Laserfiche.ClientAutomation.InsertAt">
+            <summary>
+            Where to insert new pages inside an existing document.
+            </summary>
+            <remarks>
+            This can be used with the <c>InsertPagesAt</c> property.  To insert at a
+            specific page, specify the 1-based page number instead.
+            </remarks>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.InsertAt.Start">
+            <summary>
+            Insert at the beginning.
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.InsertAt.End">
+            <summary>
+            Insert at the end.
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.InsertAt.Ask">
+            <summary>
+            Ask the user where to insert.
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.InsertAt.Default">
+            <summary>
+            Insert at the default location.
+            </summary>
+        </member>
+        <member name="T:Laserfiche.ClientAutomation.ExportType">
+            <summary>
+            Which part of the document to export.
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.ExportType.Images">
+            <summary>
+            Images
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.ExportType.Text">
+            <summary>
+            Text
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.ExportType.Edoc">
+            <summary>
+            Electronic document
+            </summary>
+        </member>
+        <member name="T:Laserfiche.ClientAutomation.ImageType">
+            <summary>
+            Which image format to export in.
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.ImageType.Default">
+            <summary>
+            Use the default format.
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.ImageType.TiffG4">
+            <summary>
+            TIFF Group IV (lossless bitonal only)
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.ImageType.TiffJpeg">
+            <summary>
+            TIFF-JPEG (lossy color and grayscale)
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.ImageType.TiffLzw">
+            <summary>
+            TIFF-LZW (lossless bitonal, color and grayscale)
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.ImageType.Jpeg">
+            <summary>
+            JPEG (lossy color and grayscale)
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.ImageType.Png">
+            <summary>
+            PNG (lossless bitonal, color and grayscale)
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.ImageType.Pdf">
+            <summary>
+            PDF
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.ImageType.Bmp">
+            <summary>
+            Windows BMP (lossless bitonal, color and grayscale)
+            </summary>
+        </member>
+        <member name="T:Laserfiche.ClientAutomation.WindowPosition">
+            <summary>
+            Specifies the position of a new window.
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.WindowPosition.MAXIMIZED">
+            <summary>
+            A <c>WindowPosition</c> instance denoting a maximized window.
+            </summary>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.WindowPosition.#ctor(System.Int32,System.Int32,System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Initializes a new <c>WindowPosition</c> instance.
+            </summary>
+            <param name="left">The position in pixels of the left edge of the window.</param>
+            <param name="top">The position in pixels of the top edge of the window.</param>
+            <param name="right">The position in pixels of the right edge of the window.</param>
+            <param name="bottom">The position in pixels of the bottom edge of the window.</param>
+            <param name="maximized">Whether the window opens as maximized.</param>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.WindowPosition.Left">
+            <summary>
+            Left edge
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.WindowPosition.Top">
+            <summary>
+            Top edge
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.WindowPosition.Right">
+            <summary>
+            Right edge
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.WindowPosition.Bottom">
+            <summary>
+            Bottom edge
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.WindowPosition.IsMaximized">
+            <summary>
+            Open maximized
+            </summary>
+        </member>
+        <member name="T:Laserfiche.ClientAutomation.LaunchOptions">
+            <summary>
+            Options for launching a new instance of the client.
+            </summary>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.LaunchOptions.#ctor">
+            <summary>
+            Initializes a new instance of <c>LaunchOptions</c>.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.LaunchOptions.ShowSplashScreen">
+            <summary>
+            Display the splash screen. Default: true.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.LaunchOptions.HiddenWindow">
+            <summary>
+            Run the client in a hidden window. Default: false.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.LaunchOptions.ServerName">
+            <summary>
+            The Laserfiche server to connect to. Nonstandard ports can be specified with the format 'servername:portnum'.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.LaunchOptions.RepositoryName">
+            <summary>
+            The Laserfiche repository to login to.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.LaunchOptions.UserName">
+            <summary>
+            The Laserfiche user to log in as. Leave blank to use domain authentication.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.LaunchOptions.Password">
+            <summary>
+            The password to use for the Laserfiche user.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.LaunchOptions.InitialFolderId">
+            <summary>
+            The ID of the folder to open initially.
+            </summary>
+            <remarks>
+            The folder tree will navigate to this folder and it will be made 
+            the root folder if makeFolderRoot is set to true.
+            </remarks>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.LaunchOptions.MakeFolderRoot">
+            <summary>
+            When opening a folder with the InitialFolderId parameter, make that folder
+            the root of the folder tree. Default: false.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.LaunchOptions.Position">
+            <summary>
+            The position of the main window.
+            </summary>
+        </member>
+        <member name="T:Laserfiche.ClientAutomation.OpenOptions">
+            <summary>
+            Options for opening a document.
+            </summary>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.OpenOptions.#ctor">
+            <summary>
+            Initializes a new <c>OpenOptions</c> instance
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.OpenOptions.OpenStyle">
+            <summary>
+            Whether to open the document in the doc viewer, as an edoc, or in the metadata dialog.
+            Default: DocumentOpenType.Default.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.OpenOptions.PageNumber">
+            <summary>
+            The page to display initially in the document viewer.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.OpenOptions.MetadataVisibleTabs">
+            <summary>
+            The metadata tabs to display.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.OpenOptions.MetadataStartTab">
+            <summary>
+            The initial metadata tab. Default: MetadataTab.Fields.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.OpenOptions.ReadOnly">
+            <summary>
+            Open the edoc in read-only mode. Default: false.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.OpenOptions.VisiblePanes">
+            <summary>
+            The document viewer panes to display.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.OpenOptions.Position">
+            <summary>
+            The position of the doc viewer window or metadata dialog.
+            </summary>
+        </member>
+        <member name="T:Laserfiche.ClientAutomation.LeftPane">
+            <summary>
+            Which pane to display when launching a search
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.LeftPane.None">
+            <summary>
+            No left pane displayed.
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.LeftPane.Search">
+            <summary>
+            Show the search pane.
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.LeftPane.FolderTree">
+            <summary>
+            Show the folder tree pane.
+            </summary>
+        </member>
+        <member name="T:Laserfiche.ClientAutomation.SearchOptions">
+            <summary>
+            Options for performing a search.
+            </summary>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.SearchOptions.#ctor">
+            <summary>
+            Initializes a new <c>SearchOptions</c> instance.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.SearchOptions.Query">
+            <summary>
+            The search query.
+            </summary>
+            <remarks>
+            For an example search query, peform a search in the client and view the "Advanced"
+            section of the search pane.
+            </remarks>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.SearchOptions.NewWindow">
+            <summary>
+            Open the search in a new window. Default: true.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.SearchOptions.OpenIfOneResult">
+            <summary>
+            If only one document is returned, open it immediately. Default: false.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.SearchOptions.OpenDocumentMode">
+            <summary>
+            When OpenIfWhenResult is true and only one document is returned, open
+            the document with the specified mode. Default: DocumentOpenType.Default,
+            which opens using the user's configured default open mode.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.SearchOptions.EagerlyRetrieveResults">
+            <summary>
+            Retrieve the search results automatically. Default: false.
+            </summary>
+            <remarks>
+            This is disabled by default for performance reasons.
+            </remarks>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.SearchOptions.LeftPaneDisplay">
+            <summary>
+            Which pane to display when launching the search. Default: LeftPane.SearchPane
+            </summary>
+        </member>
+        <member name="T:Laserfiche.ClientAutomation.ExportConflictOption">
+            <summary>
+            How to act when an exported file conflicts with an existing file on disk.
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.ExportConflictOption.Prompt">
+            <summary>
+            Prompt the user.
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.ExportConflictOption.Rename">
+            <summary>
+            Automatically rename the exported file (e.g. "Document (2)").
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.ExportConflictOption.Overwrite">
+            <summary>
+            Overwrite the existing file.
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.ExportConflictOption.Skip">
+            <summary>
+            Skip the file.
+            </summary>
+        </member>
+        <member name="T:Laserfiche.ClientAutomation.ExportOptions">
+            <summary>
+            Options for exporting a document or folder.
+            </summary>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.ExportOptions.#ctor">
+            <summary>
+            Initializes a new <c>ExportOptions</c> instance.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.ExportOptions.DocumentPart">
+            <summary>
+            Which portion of the document to export. Default: ExportType.Default.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.ExportOptions.ImageFormat">
+            <summary>
+            The image format to use for exported pages. Default: ImageType.Default.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.ExportOptions.UseMultiPageFile">
+            <summary>
+            When exporting multipage documents as tiff/pdf, combine into a single file. Default: true.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.ExportOptions.PageNumbers">
+            <summary>
+            Which pages to export.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.ExportOptions.DestinationPath">
+            <summary>
+            The destination path.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.ExportOptions.DoNotPrompt">
+            <summary>
+            Whether to suppress the file dialog and begin the export immediately. Default: false.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.ExportOptions.ConflictOption">
+            <summary>
+            How to deal with file conflicts. Default: ExportConflictOption.AskUser.
+            </summary>
+        </member>
+        <member name="T:Laserfiche.ClientAutomation.PrintOptions">
+            <summary>
+            Options for printing a document.
+            </summary>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.PrintOptions.#ctor">
+            <summary>
+            Initializes a new <c>PrintOptions</c> instance.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.PrintOptions.PrinterName">
+            <summary>
+            The name of the printer to use.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.PrintOptions.PageNumbers">
+            <summary>
+            The pages (1-based) to print. If this is empty, print all pages.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.PrintOptions.DocumentPart">
+            <summary>
+            What to print (images/text/edoc). Default: PrintType.Default.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.PrintOptions.DoNotPrompt">
+            <summary>
+            Print without user interaction. Default: false.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.PrintOptions.IncludeRedactions">
+            <summary>
+            Include redactions on printed pages. Default: true.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.PrintOptions.BlackoutRedactions">
+            <summary>
+            Burn redactions permanently onto printed pages. Default: true.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.PrintOptions.IncludeStickyNotes">
+            <summary>
+            Include sticky notes on printed pages. Default: true.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.PrintOptions.IncludeOtherAnnotations">
+            <summary>
+            Include other annotation types on printed pages. Default: true.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.PrintOptions.ApplySearchHighlights">
+            <summary>
+            Include search hits on printed pages. Default: true.
+            </summary>
+        </member>
+        <member name="T:Laserfiche.ClientAutomation.ScanOptions">
+            <summary>
+            Options for launching Laserfiche Scanning without launching the client.
+            </summary>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.ScanOptions.#ctor">
+            <summary>
+            Initializes a new <c>ScanOptions</c> instance.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.ScanOptions.ConnectionString">
+            <summary>
+            The serialized connection to use for the Scanning session. This parameter
+            overrides the server, repository, username and password parameters.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.ScanOptions.ServerName">
+            <summary>
+            The Laserfiche server to connect to.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.ScanOptions.RepositoryName">
+            <summary>
+            The Laserfiche repository to log in to.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.ScanOptions.IsSecureConnection">
+            <summary>
+            Use SSL/TLS for the repository connection.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.ScanOptions.UserName">
+            <summary>
+            The Laserfiche user to log in as.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.ScanOptions.Password">
+            <summary>
+            The password to use for the Laserfiche user.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.ScanOptions.ScanMode">
+            <summary>
+            Open Scanning in basic or standard mode. Default: ScanMode.Default.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.ScanOptions.EntryId">
+            <summary>
+            The ID of the document to scan into.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.ScanOptions.IsDocument">
+            <summary>
+            Whether the entryid parameter represents a document or a folder.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.ScanOptions.InsertPagesAt">
+            <summary>
+            Where to insert scanned pages.  Specify a 1-based page number for an absolute
+            location or a member of the <c>InsertAt</c> enumeration to use a relative location.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.ScanOptions.CloseAfterStoring">
+            <summary>
+            Whether Scanning should close automatically after storing the document pages.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.ScanOptions.WaitForExit">
+            <summary>
+            Whether to block until Scanning has exited.
+            </summary>
+        </member>
+        <member name="T:Laserfiche.ClientAutomation.ClientAutomationException">
+            <summary>
+            Represents an error raised by the Laserfiche Client Automation types.
+            </summary>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.ClientAutomationException.#ctor(System.String)">
+            <summary>
+            Initializes a new <c>ClientAutomationException</c> instance.
+            </summary>
+            <param name="message">The error message.</param>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.ClientAutomationException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new <c>ClientAutomationException</c> instance.
+            </summary>
+            <param name="message">The error message.</param>
+            <param name="innerException">The inner or source exception.</param>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.ClientAutomationException.#ctor(System.Int32,System.String)">
+            <summary>
+            Initializes a new <c>ClientAutomationException</c> instance.
+            </summary>
+            <param name="errcode">The error code.</param>
+            <param name="message">The error message.</param>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.ClientAutomationException.#ctor(System.Int32,System.String,System.Exception)">
+            <summary>
+            Initializes a new <c>ClientAutomationException</c> instance.
+            </summary>
+            <param name="errcode">The error code.</param>
+            <param name="message">The error message.</param>
+            <param name="innerException">The inner or source exception.</param>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.ClientAutomationException.ErrorCode">
+            <summary>
+            The HRESULT or Laserfiche error code.
+            </summary>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.ClientAutomationException.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Sets the System.Runtime.Serialization.SerializationInfo with information about the exception.
+            </summary>
+            <param name="info">The System.Runtime.Serialization.SerializationInfo that holds the serialized
+             object data about the exception being thrown.</param>
+            <param name="context">The System.Runtime.Serialization.StreamingContext that contains contextual
+             information about the source or destination.</param>
+        </member>
+        <member name="T:Laserfiche.ClientAutomation.ClientInstance">
+            <summary>
+            ClientInstance represents a single LF.exe process. This class is used to
+            enumerate all open windows and connections for a particular instance.
+            </summary>
+            <remarks>
+            Each instance of LF.exe can have multiple windows and multiple connected repositories.
+            </remarks>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.ClientInstance.ProcessID">
+            <summary>
+            The client's process ID (PID).
+            </summary>
+            <returns>The process ID (PID) for the current client instance</returns>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.ClientInstance.IsVisible">
+            <summary>
+            Returns true if this client instance is visible.
+            </summary>
+            <returns>Whether the current window is visible.</returns>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.ClientInstance.CATVersion">
+            <summary>
+            Returns the protocol version supported by the client instance.
+            </summary>
+            <returns>The protocol version.</returns>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.ClientInstance.RepositoryConnections">
+            <summary>
+            Returns the list of currently connected repositories.
+            </summary>
+            <returns>The list of currently connected repositories.</returns>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.ClientInstance.IsLoggedIn">
+            <summary>
+            Returns a boolean indicating if the client is logged in to at least one repository.
+            </summary>
+            <returns>A boolean indicating if the client is logged in to at least one repository.</returns>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.ClientInstance.Dispose">
+            <summary>
+            Frees resources which were acquired and closes the client if there are no other
+            connections.
+            </summary>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.ClientInstance.GetAllClientWindows">
+            <summary>
+            Returns a list of all open client windows.
+            </summary>
+            <returns>A list of all open client windows.</returns>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.ClientInstance.Close(System.Boolean)">
+            <summary>
+            Close the Laserfiche Client process.
+            </summary>
+            <param name="allowPrompt">Allow asking the user whether they want to continue closing.</param>
+        </member>
+        <member name="T:Laserfiche.ClientAutomation.ClientManager">
+            <summary>
+            The main class which finds open Client instances and launches new ones.
+            </summary>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.ClientManager.Dispose">
+            <summary>
+            Frees resources which were acquired.
+            </summary>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.ClientManager.Refresh">
+            <summary>
+            Refreshes the list of client instances this <c>ClientManager</c> instance is aware of
+            by querying the system for running clients.
+            </summary>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.ClientManager.IsClientOpen">
+            <summary>
+            Returns true if one or more instances of the client are running and visible.
+            </summary>
+            <returns>True if one or more instances of the client are running and visible.</returns>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.ClientManager.LogIn(Laserfiche.ClientAutomation.LaunchOptions,Laserfiche.ClientAutomation.MainWindow@)">
+            <summary>
+            Log into a repository, reusing any existing client window that is already logged in as the same user.
+            </summary>
+            <param name="options">Options specifying how to log in.</param>
+            <param name="mainWindow">A <c>MainWindow</c> instance which represents the main client window, or null
+            if there was an error.</param>
+            <returns>If a new client instance was launched, the <c>ClientInstance</c> that represents it
+            is returned.  If a client instance is reused, null is returned.</returns>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.ClientManager.GetAllClientInstances">
+            <summary>
+            Retrieves a list of all open client instances.  The returned instances must be disposed.
+            </summary>
+            <returns>The list of all open client instances.</returns>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.ClientManager.GetAllSelectedEntries">
+            <summary>
+            Returns a list of every selected entry for all open client windows.
+            </summary>
+            <returns>A list of selected entry IDs.</returns>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.ClientManager.GetAllOpenDocuments">
+            <summary>
+            Returns a list of every document open in the doc viewer.  If a document is
+            open more than once, its entry ID will appear once for each time it is open.
+            </summary>
+            <returns>A list of entry IDs.</returns>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.ClientManager.GetAllClientWindows(Laserfiche.ClientAutomation.ClientWindowType)">
+            <summary>
+            Retrieve all open client windows for all open client instances.
+            </summary>
+            <param name="windowType">The window type to return (main window or document viewer, or Unknown).
+            Use ClientWindowType.Unknown for all windows.</param>
+            <returns>A list of all client windows matching the specified windowType.</returns>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.ClientManager.GetForegroundWindow">
+            <summary>
+            Retrieve the currently focused client window, if any.
+            </summary>
+            <returns>The currently focused client window, or null if another program has the focus.</returns>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.ClientManager.GetAllRepositoryConnections">
+            <summary>
+            Retrieve all repository connections for all open client instances.
+            </summary>
+            <returns>A list of all repository connections.</returns>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.ClientManager.LaunchClient">
+            <summary>
+            Launches the Laserfiche client and connects to its automation object.  The returned
+            instance must be disposed.
+            </summary>
+            <returns>A <c>ClientInstance</c> which represents the new client instance.  It must
+            be disposed.</returns>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.ClientManager.LaunchClient(Laserfiche.ClientAutomation.LaunchOptions)">
+            <summary>
+            Launches the Laserfiche client and connects to its automation object
+            </summary>
+            <param name="options">Options that control how the client will be launched.</param>
+            <returns>A <c>ClientInstance</c> which represents the new client instance.  It must
+            be disposed.</returns>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.ClientManager.LaunchScanning(Laserfiche.ClientAutomation.ScanOptions)">
+            <summary>
+            Launch Laserfiche Scanning with the specified options.
+            </summary>
+            <param name="options">Options specifying how scanning should be launched.</param>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.ClientManager.GetToolbarManager(Laserfiche.ClientAutomation.ClientWindowType)">
+            <summary>
+            Returns the toolbar manager for the specified window type.
+            </summary>
+            <param name="windowtype">The type of the window to manage.</param>
+            <returns>A <c>ToolbarManager</c> instance representing the toolbar manager.</returns>
+        </member>
+        <member name="T:Laserfiche.ClientAutomation.ClientWindow">
+            <summary>
+            Base class for the doc viewer and main window classes.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.ClientWindow.Hwnd">
+            <summary>
+            The window handle for the represented client window.
+            </summary>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.ClientWindow.IsLoggedIn">
+            <summary>
+            Returns true if the represented window is logged in to a repository.
+            </summary>
+            <returns>True if the represented window is logged in to a repository.</returns>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.ClientWindow.GetWindowType">
+            <summary>
+            Returns the window type for the represented window.
+            </summary>
+            <returns>A member of <c>ClientWindowType</c> indicating the window type.</returns>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.ClientWindow.GetCurrentRepository">
+            <summary>
+            Returns the currently connected Laserfiche repository for the represented window,
+            or null if there is no connection.
+            </summary>
+            <returns>The currently connected Laserfiche repository for the represented window,
+            or null if there is no connection.</returns>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.ClientWindow.GetWindowTitle">
+            <summary>
+            Returns the title of the represented window.
+            </summary>
+            <returns>The title of the represented window.</returns>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.ClientWindow.Refresh">
+            <summary>
+            Refresh the contents of the represented window.
+            </summary>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.ClientWindow.SetFocus">
+            <summary>
+            Bring the represented client window into the foreground and
+            sets the focus to it.
+            </summary>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.ClientWindow.Close">
+            <summary>
+            Close the represented client window.
+            </summary>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.ClientWindow.Close(System.Boolean)">
+            <summary>
+            Close the represented client window.
+            </summary>
+            <param name="allowPrompt">True to allow prompts, false to not prompt and force close.</param>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.ClientWindow.LaunchScanningFromClient(Laserfiche.ClientAutomation.ScanOptions)">
+            <summary>
+            Launch Laserfiche Scanning with the specified options.
+            </summary>
+            <param name="options">Options specifying how scanning should be launched.</param>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.ClientWindow.CloseScanning">
+            <summary>
+            Ask Laserfiche Scanning to close.
+            </summary>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.ClientWindow.SendMessage(System.Int32,System.IntPtr,System.IntPtr)">
+            <summary>
+            Send a window message to the represented window.
+            </summary>
+            <param name="nCommand">The window message identifier.</param>
+            <param name="wParam">The window message's WPARAM.</param>
+            <param name="lParam">The window message's LPARAM.</param>
+            <remarks>The return value from the window procedure.</remarks>
+            <returns>The return code from SendMessage.</returns>
+        </member>
+        <member name="T:Laserfiche.ClientAutomation.DocumentViewer">
+            <summary>
+            Represents an open document viewer window.
+            </summary>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.DocumentViewer.GetWindowType">
+            <summary>
+            Returns the window type for this window.
+            </summary>
+            <returns>The window type.</returns>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.DocumentViewer.IsReadOnly">
+            <summary>
+            Returns true if the document viewer was opened in read only mode.
+            </summary>
+            <returns>True if the document viewer was opened in read only mode.</returns>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.DocumentViewer.Print(Laserfiche.ClientAutomation.PrintOptions)">
+            <summary>
+            Print the current document using the specified options.
+            </summary>
+            <param name="options">Options specifying how the client should print the document.</param>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.DocumentViewer.Export(Laserfiche.ClientAutomation.ExportOptions)">
+            <summary>
+            Export the current document using the specified options.
+            </summary>
+            <param name="options">Options specifying how the client should export the document.</param>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.DocumentViewer.GoToPage(System.Int32)">
+            <summary>
+            Move the document viewer to the specified page (1-based).
+            </summary>
+            <param name="pagenum">The page to display.</param>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.DocumentViewer.GetDocumentId">
+            <summary>
+            Returns the entry ID of the current (open) document.
+            </summary>
+            <returns>The entry ID of the current document.</returns>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.DocumentViewer.GetDocumentName">
+            <summary>
+            Returns the name of the current document.
+            </summary>
+            <returns>The name of the current document.</returns>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.DocumentViewer.GetCurrentPageNumber">
+            <summary>
+            Returns the currently displayed page number.
+            </summary>
+            <returns>The currently displayed page number.</returns>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.DocumentViewer.GetPageCount">
+            <summary>
+            Returns the number of pages in the current document.
+            </summary>
+            <returns>The number of pages in the current document.</returns>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.DocumentViewer.GetSelectedThumbnails">
+            <summary>
+            Returns a list of currently selected page numbers (1-based).
+            </summary>
+            <returns>A list of currently selected page numbers (1-based).</returns>
+        </member>
+        <member name="T:Laserfiche.ClientAutomation.ContextHitType">
+            <summary>
+            The type of the context hit (page/sticky note/textbox/edoc/field).
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.ContextHitType.Unknown">
+            <summary>
+            Unknown context hit type.
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.ContextHitType.Document">
+            <summary>
+            A page text context hit.
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.ContextHitType.StickyNote">
+            <summary>
+            A sticky note context hit.
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.ContextHitType.Callout">
+            <summary>
+            A callout context hit.
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.ContextHitType.Textbox">
+            <summary>
+            A textbox context hit.
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.ContextHitType.Edoc">
+            <summary>
+            A hit within the edoc.
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.ContextHitType.Field">
+            <summary>
+            A template field context hit.
+            </summary>
+        </member>
+        <member name="T:Laserfiche.ClientAutomation.ContextHitInfo">
+            <summary>
+            Information about a single context hit.
+            </summary>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.ContextHitInfo.#ctor">
+            <summary>
+            Initializes a new <c>ContextHitInfo</c> instance.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.ContextHitInfo.EntryId">
+            <summary>
+            The entry ID for the context hit.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.ContextHitInfo.PageNumber">
+            <summary>
+            The page number for the context hit (1-based).
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.ContextHitInfo.HitType">
+            <summary>
+            The type of the context hit.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.ContextHitInfo.AnnotationId">
+            <summary>
+            The annotation ID if this is an annotation hit.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.ContextHitInfo.Context">
+            <summary>
+            The text displayed in the context hit listing.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.ContextHitInfo.HitText">
+            <summary>
+            The search hit text.
+            </summary>
+        </member>
+        <member name="T:Laserfiche.ClientAutomation.ClientColumn">
+            <summary>
+            A single column and its width.
+            </summary>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.ClientColumn.#ctor">
+            <summary>
+            Initializes a new <c>ClientColumn</c> instance.
+            </summary>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.ClientColumn.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Identify a system column by its LaserficheServerObjects (LFSO) column ID.
+            </summary>
+            <param name="columnId">The column ID.</param>
+            <param name="width">The width of the column, in pixels.</param>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.ClientColumn.#ctor(System.String,System.Int32)">
+            <summary>
+            Identify a template field column by a field name.
+            </summary>
+            <param name="fieldName">The name of the field.</param>
+            <param name="width">The width of the column, in pixels.</param>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.ClientColumn.ColumnId">
+            <summary>
+            System column ID.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.ClientColumn.FieldName">
+            <summary>
+            Field name.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.ClientColumn.Width">
+            <summary>
+            Width of the column in pixels.
+            </summary>
+        </member>
+        <member name="T:Laserfiche.ClientAutomation.SortDirection">
+            <summary>
+            Column sort direction.
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.SortDirection.Ascending">
+            <summary>
+            Ascending, A-Z
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.SortDirection.Descending">
+            <summary>
+            Descending, Z-A
+            </summary>
+        </member>
+        <member name="T:Laserfiche.ClientAutomation.SetColumnsOptions">
+            <summary>
+            Options for setting a custom folder listing column layout.
+            </summary>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.SetColumnsOptions.#ctor">
+            <summary>
+            Initializes a new <c>SetColumnOptions</c> instance.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.SetColumnsOptions.Columns">
+            <summary>
+            The columns to display.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.SetColumnsOptions.SortColumnId">
+            <summary>
+            The LFSO ID of the system column to sort by.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.SetColumnsOptions.SortFieldName">
+            <summary>
+            The template field to sort by.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.SetColumnsOptions.SortDirection">
+            <summary>
+            Sort in ascending or descending order. Default: SortDirection.Ascending.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.SetColumnsOptions.AreColumnsPersistent">
+            <summary>
+            If true, the column set will persist when moving to a different folder. Default: false.
+            </summary>
+        </member>
+        <member name="T:Laserfiche.ClientAutomation.GeneratePagesOptions">
+            <summary>
+            Options for generating pages using Snapshot or PDFImporter.
+            </summary>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.GeneratePagesOptions.#ctor">
+            <summary>
+            Initializes a new <c>GeneratePagesOptions</c> instance.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.GeneratePagesOptions.ShowUI">
+            <summary>
+            Show a progress dialog and allow prompting the user for a PDF password.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.GeneratePagesOptions.ForceSnapshot">
+            <summary>
+            Always use Laserfiche Snapshot when generating pages for PDFs.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.GeneratePagesOptions.PdfPassword">
+            <summary>
+            The password for accessing password-protected PDFs.
+            </summary>
+        </member>
+        <member name="T:Laserfiche.ClientAutomation.StartBusinessProcessOptions">
+            <summary>
+            Options for starting a business process on one or more entries.
+            </summary>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.StartBusinessProcessOptions.#ctor">
+            <summary>
+            Initializes a new <c>StartBusinessProcessOptions</c> instance.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.StartBusinessProcessOptions.BusinessProcessId">
+            <summary>
+            The business process ID.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.StartBusinessProcessOptions.BusinessProcessName">
+            <summary>
+            The business process name.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.StartBusinessProcessOptions.ShowUI">
+            <summary>
+            Show confirmation dialogs.
+            </summary>
+        </member>
+        <member name="T:Laserfiche.ClientAutomation.MainWindow">
+            <summary>
+            Represents a "main" client window instance.
+            </summary>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.MainWindow.GetWindowType">
+            <summary>
+            Returns the window type for this window.
+            </summary>
+            <returns>The window type.</returns>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.MainWindow.GetSelectedEntries">
+            <summary>
+            Returns a list of the currently selected entry IDs.
+            </summary>
+            <returns>A list of the currently selected entry IDs.</returns>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.MainWindow.LogIn(Laserfiche.ClientAutomation.LaunchOptions)">
+            <summary>
+            Logs in the current window based on the specified launch options. Only works for windows that are at the login screen.
+            </summary>
+            <returns>Whether or not the login attempt succeeded.</returns>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.MainWindow.SetSelectedEntries(System.Collections.Generic.IEnumerable{System.Int32})">
+            <summary>
+            Set the currently selected entry or entries in the current folder or search results.
+            </summary>
+            <param name="listEntryIDs">The list of entry IDs specifying which entries to select.</param>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.MainWindow.GetSelectedContextHits">
+            <summary>
+            Returns a list of the currently selected context hits.
+            </summary>
+            <returns>A list of the currently selected context hits.</returns>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.MainWindow.GetCurrentFolderId">
+            <summary>
+            Returns the current folder ID.
+            </summary>
+            <returns>The current folder ID, or 0 if there is no current folder.</returns>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.MainWindow.GetCurrentFolderName">
+            <summary>
+            Returns the current folder Name.
+            </summary>
+            <returns>The current folder name, empty if there is no current folder.</returns>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.MainWindow.SetCurrentFolder(System.Int32)">
+            <summary>
+            Move the entry listing to the specified folder, making it this window's current
+            folder.
+            </summary>
+            <param name="folderID">The entry ID of the folder to switch to as the
+            window's current folder.</param>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.MainWindow.SetColumns(Laserfiche.ClientAutomation.SetColumnsOptions)">
+            <summary>
+            Set the column layout of the represented window.
+            </summary>
+            <param name="columnoptions">The column layout to use.</param>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.MainWindow.OpenDocumentById(System.Int32,Laserfiche.ClientAutomation.OpenOptions)">
+            <summary>
+            Open a document with the specified options.
+            </summary>
+            <param name="entryid">The entry ID of the document to open.</param>
+            <param name="options">Options specifying how the document should be displayed.</param>
+            <returns>Always false.</returns>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.MainWindow.OpenDocumentByPath(System.String,Laserfiche.ClientAutomation.OpenOptions)">
+            <summary>
+            Open a document with the specified options.
+            </summary>
+            <param name="path">The path to the document to open.</param>
+            <param name="options">Options specifying how the document should be displayed.</param>
+            <returns>Always false.</returns>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.MainWindow.PrintById(System.Int32,Laserfiche.ClientAutomation.PrintOptions)">
+            <summary>
+            Print the document with the specified ID.
+            </summary>
+            <param name="entryid">The entry ID of the document to print.</param>
+            <param name="options">Options that control how the document will be printed.</param>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.MainWindow.ExportById(System.Int32,Laserfiche.ClientAutomation.ExportOptions)">
+            <summary>
+            Export the specified document using the specified options.
+            </summary>
+            <param name="entryid">The entry ID of the document to export.</param>
+            <param name="options">Options that specify how the document should be exported.</param>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.MainWindow.ExportById(System.Collections.Generic.IEnumerable{System.Int32},Laserfiche.ClientAutomation.ExportOptions)">
+            <summary>
+            Export the specified documents using the specified options.
+            </summary>
+            <param name="entryids">A list of entry IDs indicating which documents to export.</param>
+            <param name="options">Options that specify how the documents should be exported.</param>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.MainWindow.LaunchSearch(Laserfiche.ClientAutomation.SearchOptions)">
+            <summary>
+            Launch a search using the specified options.
+            </summary>
+            <param name="options">The search parameters and options.</param>
+            <returns>A list of entry IDs that match the search criteria.</returns>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.MainWindow.GeneratePages(System.Collections.Generic.IEnumerable{System.Int32},Laserfiche.ClientAutomation.GeneratePagesOptions)">
+            <summary>
+            Generate pages on the specified entries with Snapshot or PDFImporter.
+            </summary>
+            <param name="entryids">A list of entry IDs to generate pages on.</param>
+            <param name="options">Options that control how to generate pages on the specified entries.</param>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.MainWindow.StartBusinessProcess(System.Collections.Generic.IEnumerable{System.Int32},Laserfiche.ClientAutomation.StartBusinessProcessOptions)">
+            <summary>
+            Start a business process on one or more entries.
+            </summary>
+            <param name="entryids">A list of entry IDs to start the business process on.</param>
+            <param name="options">Options that control which business process to start and how to start it.</param>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.MainWindow.ShowBusinessProcessHistory(System.Int32,System.Int64,Laserfiche.ClientAutomation.WindowPosition)">
+            <summary>
+            Show the business process history dialog for the specified entry.
+            </summary>
+            <param name="entryid">The entry ID of the entry to show the history of.</param>
+            <param name="businessprocessentityid">Optional: Show the specified business process entity by default</param>
+            <param name="position">Optional: Show the window at the specified position</param>
+        </member>
+        <member name="T:Laserfiche.ClientAutomation.PageRange">
+            <summary>
+            Represents a contiguous range of page numbers in a single document.
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.PageRange.MIN_PAGE_NUMBER">
+            <summary>
+            The minimum valid page number.
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.PageRange.MAX_PAGE_NUMBER">
+            <summary>
+            The maximum valid page number.
+            </summary>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.PageRange.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Initializes a new instance of the <c>PageRange</c> type.
+            </summary>
+            <param name="start">The inclusive starting page number.</param>
+            <param name="end">The inclusive ending page number.</param>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.PageRange.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <c>PageRange</c> type from a string.
+            </summary>
+            <param name="rangeString">A string which specifies a single page or
+            page range to initialize the new instance.</param>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.PageRange.Start">
+            <summary>
+            Gets or sets the starting page number of the range.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.PageRange.End">
+            <summary>
+            Gets or sets the ending page number of the range.
+            </summary>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.PageRange.ContainsPage(System.Int32)">
+            <summary>
+            Determines if the specified page number is inside the current range.
+            </summary>
+            <param name="pageNumber">The page number to check.</param>
+            <returns>True if <paramref name="pageNumber"/> is inside the range;
+            false otherwise.</returns>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.PageRange.ContainsRange(Laserfiche.ClientAutomation.PageRange)">
+            <summary>
+            Determines if the specified range is inside the current range.
+            </summary>
+            <param name="pageRange">The range to check for inclusiveness.</param>
+            <returns>True if <paramref name="pageRange"/> is contained entirely in this range;
+            false otherwise.</returns>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.PageRange.Equals(Laserfiche.ClientAutomation.PageRange,Laserfiche.ClientAutomation.PageRange)">
+            <summary>
+            Determines if two <c>PageRange</c> values are equal.
+            </summary>
+            <param name="range1">The first <c>PageRange</c> to compare.</param>
+            <param name="range2">The second <c>PageRange</c> to compare.</param>
+            <returns>True if both arguments are equal; false otherwise.</returns>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.PageRange.Equals(Laserfiche.ClientAutomation.PageRange)">
+            <summary>
+            Determines if the range represented by this value is equal to
+            another <c>PageRange</c>.
+            </summary>
+            <param name="value">The <c>PageRange</c> value to check for equality.</param>
+            <returns>True if this value is equal to the argument; false otherwise.</returns>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.PageRange.Equals(System.Object)">
+            <summary>
+            Determines if an object reference is a <c>PageRange</c> value that is equal
+            to this instance's value.
+            </summary>
+            <param name="obj">The object to test for value equality.</param>
+            <returns>True if the object is a <c>PageRange</c> value equal to this instance;
+            false otherwise.</returns>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.PageRange.GetHashCode">
+            <summary>
+            Returns the hash code for this instance.
+            </summary>
+            <returns>A 32-bit signed integer hash code.</returns>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.PageRange.ToString">
+            <summary>
+            Returns the string representation of the page range.
+            </summary>
+            <returns>The string representation of the page range.</returns>
+        </member>
+        <member name="T:Laserfiche.ClientAutomation.PageSet">
+            <summary>
+            Represents a potentially non-contiguous set of page numbers in a single document.
+            </summary>
+            <remarks>
+            The <c>PageSet</c> class can logically be considered a minimal list of
+            non-overlapping <c>PageRange</c> values.  Consumers of <c>PageSet</c> can
+            add and remove individual page numbers or ranges from an instance, and
+            the class takes care of maintaining a minimal covering of the set by a
+            list of <c>PageRange</c> values.  For example, if a consumer wants to
+            represent the set of pages 1-10 they can add the even pages followed by
+            the odd pages; pages 1-5 followed by 6-10; or pages 1-10 in one call.
+            The end result will be the same: a single range of pages 1-10.
+            </remarks>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.PageSet.RangeCount">
+            <summary>
+            Gets the number of distinct page ranges in this instance.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.PageSet.Item(System.Int32)">
+            <summary>
+            Returns the page range at the specified index.
+            </summary>
+            <param name="index">The index of the PageRange to return.</param>
+            <returns>The page range at the specified index.</returns>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.PageSet.#ctor">
+            <summary>
+            Initializes a new instance of <c>PageSet</c> with no pages.
+            </summary>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.PageSet.#ctor(Laserfiche.ClientAutomation.PageRange)">
+            <summary>
+            Initializes a new instance of <c>PageSet</c> from a single <c>PageRange</c>
+            value.
+            </summary>
+            <param name="range">The range of pages that the <c>PageSet</c> should
+            contain.</param>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.PageSet.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of <c>PageSet</c> from a string specification
+            of page ranges.
+            </summary>
+            <param name="rangesString">A string specification of page ranges.</param>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.PageSet.#ctor(System.Collections.Generic.IEnumerable{Laserfiche.ClientAutomation.PageRange})">
+            <summary>
+            Initializes a new instance of <c>PageSet</c> from a collection of
+            <c>PageRange</c> values.
+            </summary>
+            <param name="enumerator">The enumerator to read <c>PageRange</c> values from.</param>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.PageSet.#ctor(System.Collections.Generic.IEnumerable{System.Int32})">
+            <summary>
+            Initializes a new instance of <c>PageSet</c> from a collection of page numbers.
+            </summary>
+            <param name="pageNumberEnum">A collection of page numbers to initialize
+            the new <c>PageSet</c> instance from.</param>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.PageSet.AddPage(System.Int32)">
+            <summary>
+            Adds a page number to the set of page numbers maintained by this instance.
+            </summary>
+            <param name="pageNumber">The page number to add.</param>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.PageSet.AddRange(Laserfiche.ClientAutomation.PageRange)">
+            <summary>
+            Adds a range of page numbers to the set of page numbers maintained by this instance.
+            </summary>
+            <param name="pageRange">The range of pages to add.</param>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.PageSet.Clear">
+            <summary>
+            Removes all pages from this instance.
+            </summary>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.PageSet.RemovePage(System.Int32)">
+            <summary>
+            Removes a single page number from the set.
+            </summary>
+            <param name="pageNumber">The page number to remove.</param>
+            <returns>True if any page was removed from the set; false otherwise.</returns>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.PageSet.RemoveRange(Laserfiche.ClientAutomation.PageRange)">
+            <summary>
+            Removes a range of page numbers from the set.
+            </summary>
+            <param name="pageRange">The range of page numbers to remove.</param>
+            <returns>True if any page was removed from the set; false otherwise.</returns>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.PageSet.ContainsPage(System.Int32)">
+            <summary>
+            Determines if a page number is in the set.
+            </summary>
+            <param name="pageNumber">The page number to check for membership.</param>
+            <returns>True if this instance contains the given page number;
+            false otherwise.</returns>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.PageSet.ContainsRange(Laserfiche.ClientAutomation.PageRange)">
+            <summary>
+            Determines if a range of pages is covered by the set.
+            </summary>
+            <param name="pageRange">The range of pages to check.</param>
+            <returns>True if this instance covers the range of pages specified by
+            <paramref name="pageRange"/>; false otherwise.</returns>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.PageSet.IsSubsetOf(Laserfiche.ClientAutomation.PageSet)">
+            <summary>
+            Determines if this instance is a subset of a <c>PageSet</c> instance.
+            </summary>
+            <param name="pgset">The <c>PageSet</c> instance to check.</param>
+            <returns>True if this instance represents a subset of the set represented by
+            <paramref name="pgset"/>; false otherwise.</returns>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.PageSet.IsSupersetOf(Laserfiche.ClientAutomation.PageSet)">
+            <summary>
+            Determines if this instance is a superset of a <c>PageSet</c> instance.
+            </summary>
+            <param name="pgset">The <c>PageSet</c> instance to check.</param>
+            <returns>True if this instance represents a superset of the set represented by
+            <paramref name="pgset"/>; false otherwise.</returns>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.PageSet.GetTotalPageCount">
+            <summary>
+            Calculates the total number of pages covered by this instance.
+            </summary>
+            <returns>The number of pages covered by the set of page numbers
+            represented by this instance.</returns>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.PageSet.ToString">
+            <summary>
+            Returns the string representation of the page set.
+            </summary>
+            <returns>The string representation of the page set.</returns>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.PageSet.GetEnumerator">
+            <summary>
+            Returns an enumerator over the stored page ranges in the set.
+            </summary>
+            <returns>An enumerator over the stored page ranges in the set.</returns>
+        </member>
+        <member name="T:Laserfiche.ClientAutomation.PageSet.Enumerator">
+            <summary>
+            A <c>PageRange</c> enumerator for <c>PageSet</c>.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.PageSet.Enumerator.Current">
+            <summary>
+            Gets the element in the collection at the current position of the enumerator.
+            </summary>
+            <returns>The element in the collection at the current position of the enumerator.</returns>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.PageSet.Enumerator.Dispose">
+            <summary>
+            Disposes of the object's internal resources.
+            </summary>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.PageSet.Enumerator.MoveNext">
+            <summary>
+            Advances the enumerator to the next element of the collection.
+            </summary>
+            <returns>True if the enumerator was successfully advanced to the next element; false
+            if the enumerator has passed the end of the collection.</returns>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.PageSet.Enumerator.Reset">
+            <summary>
+            Sets the enumerator to its initial position, which is before the first element in the collection.
+            </summary>
+        </member>
+        <member name="T:Laserfiche.ClientAutomation.RepositoryConnection">
+            <summary>
+            Contains information about a single repository connection. One client instance can have
+            multiple repository connections.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.RepositoryConnection.ServerName">
+            <summary>
+            The Laserfiche server name.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.RepositoryConnection.RepositoryName">
+            <summary>
+            The Laserfiche database name.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.RepositoryConnection.RepositoryGuid">
+            <summary>
+            The Laserfiche repository GUID.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.RepositoryConnection.ConnectionGuid">
+            <summary>
+            The GUID for the Laserfiche connection.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.RepositoryConnection.UserName">
+            <summary>
+            The user name for the current Laserfiche user or domain account.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.RepositoryConnection.UserSid">
+            <summary>
+            The security identifier for the currently logged in user.
+            </summary>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.RepositoryConnection.GetConnectionString">
+            <summary>
+            Connection string that can be passed to LFSO.ILFConnection.CloneFromSerializedConnectionString.
+            </summary>
+            <returns>A serialized Laserfiche connection string.</returns>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.RepositoryConnection.GetSerializedConnection">
+            <summary>
+            Connection object that can be passed to LFSO.ILFConnection.CloneFromSerializedConnection.
+            </summary>
+            <returns>A serialized Laserfiche connection object.</returns>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.RepositoryConnection.OpenDocumentById(System.Int32,Laserfiche.ClientAutomation.OpenOptions)">
+            <summary>
+            Open a document by ID using the specified options.
+            </summary>
+            <param name="entryid">The entry ID of the document to open.</param>
+            <param name="options">Options to control how the document should be opened.</param>
+            <returns>True if the document was opened successfully, false otherwise.</returns>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.RepositoryConnection.OpenDocumentByPath(System.String,Laserfiche.ClientAutomation.OpenOptions)">
+            <summary>
+            Open a document by path using the specified options.
+            </summary>
+            <param name="path">The path to the document to open.</param>
+            <param name="options">Options to control how the document should be opened.</param>
+            <returns>True if the document was opened successfully, false otherwise.</returns>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.RepositoryConnection.LaunchSearch(Laserfiche.ClientAutomation.SearchOptions)">
+            <summary>
+            Launch a search using the specified options.
+            </summary>
+            <param name="options">The search criteria and options to use.</param>
+            <returns>The list of entry IDs which match the specified search criteria.</returns>
+            <remarks>
+            If <c>SearchOptions.ReturnResults</c> is true, the function returns the IDs for the
+            search results.
+            </remarks>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.RepositoryConnection.LogOut">
+            <summary>
+            Log out the current connection.
+            </summary>
+        </member>
+        <member name="T:Laserfiche.ClientAutomation.ToolbarPosition">
+            <summary>
+            Where to position a new toolbar.
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.ToolbarPosition.Top">
+            <summary>
+            At the top of the window.
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.ToolbarPosition.Bottom">
+            <summary>
+            At the bottom of the window.
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.ToolbarPosition.Left">
+            <summary>
+            At the left edge of the window.
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.ToolbarPosition.Right">
+            <summary>
+            At the right edge of the window.
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.ToolbarPosition.Floating">
+            <summary>
+            Floating above the window.
+            </summary>
+        </member>
+        <member name="T:Laserfiche.ClientAutomation.CustomButtonInfo">
+            <summary>
+            Information about a custom toolbar button.
+            </summary>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.CustomButtonInfo.#ctor">
+            <summary>
+            Initializes a new <c>CustomButtonInfo</c> instance.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.CustomButtonInfo.Id">
+            <summary>
+            The button ID
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.CustomButtonInfo.Description">
+            <summary>
+            The button description. Shows up as the tooltip.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.CustomButtonInfo.Command">
+            <summary>
+            The command line when the button is clicked.
+            </summary>
+            <remarks>
+            <para>Command line tokens:</para>
+            <para>%(PID):             The LF.exe process ID.</para>
+            <para>%(ProcessID):       The LF.exe process ID.</para>
+            <para>%(ConnectionGUID):  The LFSO connection GUID.</para>
+            <para>%(DatabaseName):    Current repository name.</para>
+            <para>%(RepositoryName):  Current repository name.</para>
+            <para>%(DatabaseGUID):    Current repository GUID.</para>
+            <para>%(RepositoryGUID):  Current repository GUID.</para>
+            <para>%(Username):        Current user name.</para>
+            <para>%(SID):             Current user security identifier.</para>
+            <para>%(hwnd):            Current window handle.</para>
+            <para>%(DocumentID):      Current document ID (Doc viewer only).</para>
+            <para>%(FolderID):        Current folder ID (Entry listing only).</para>
+            <para>%(SelectedEntries): Comma delimited list of selected entry IDs.</para>
+            <para>%(SelectedPages):   Comma delimited list of selected page numbers.</para>
+            </remarks>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.CustomButtonInfo.IconPath">
+            <summary>
+            The icon for the button.
+            </summary>
+        </member>
+        <member name="T:Laserfiche.ClientAutomation.ToolbarButtonInfo">
+            <summary>
+            Information about a toolbar button.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.ToolbarButtonInfo.Id">
+            <summary>
+            The button ID.
+            </summary>
+        </member>
+        <member name="P:Laserfiche.ClientAutomation.ToolbarButtonInfo.IsSeparator">
+            <summary>
+            Whether the button is preceded by a separator line.
+            </summary>
+        </member>
+        <member name="T:Laserfiche.ClientAutomation.ToolbarManager">
+            <summary>
+            Allows creating toolbars, creating custom toolbar buttons, and adding buttons
+            to toolbars.
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.ToolbarManager.CUSTOM_TOOLBAR_FIRST">
+            <summary>
+            The first custom toolbar ID (32900).
+            </summary>
+        </member>
+        <member name="F:Laserfiche.ClientAutomation.ToolbarManager.CUSTOM_TOOLBAR_LAST">
+            <summary>
+            The last custom toolbar ID (32999).
+            </summary>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.ToolbarManager.Dispose">
+            <summary>
+            Frees resources that were acquired by this instance.
+            </summary>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.ToolbarManager.SaveCurrentAsDefault">
+            <summary>
+            Copies the current toolbar settings to the HKEY_LOCAL_MACHINE registry key. New client installations
+            will inherit these toolbar settings by default.
+            </summary>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.ToolbarManager.GetCustomToolbarButtonCount">
+            <summary>
+            Returns the number of custom toolbar buttons.
+            </summary>
+            <returns>The number of custom toolbar buttons.</returns>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.ToolbarManager.GetCustomToolbarButton(System.Int32)">
+            <summary>
+            Returns the custom toolbar button at the specified index (0-based).
+            </summary>
+            <param name="index">The index of the button to retrieve information about.</param>
+            <returns>A <c>CustomButtonInfo</c> instance which represents the specified button.</returns>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.ToolbarManager.AddCustomToolbarButton(Laserfiche.ClientAutomation.CustomButtonInfo)">
+            <summary>
+            Add a custom toolbar button using the specified CustomButtonInfo.
+            </summary>
+            <param name="buttonInfo">Information about the new toolbar button.</param>
+            <returns>The index of the new toolbar button.</returns>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.ToolbarManager.RemoveCustomToolbarButton(System.Int32)">
+            <summary>
+            Removes the custom toolbar button at the specified index (0-based).
+            </summary>
+            <param name="index">The index of the button to remove.</param>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.ToolbarManager.GetToolbarCount">
+            <summary>
+            Returns the number of customizable toolbars for the current window type.
+            </summary>
+            <returns>The number of customizable toolbars.</returns>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.ToolbarManager.GetToolbarName(System.Int32)">
+            <summary>
+            Returns the name of the toolbar at the specified index (0-based).
+            </summary>
+            <param name="index">The index of the toolbar to return.</param>
+            <returns>The name of the toolbar at the specified index.</returns>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.ToolbarManager.AddToolbar(System.String,Laserfiche.ClientAutomation.ToolbarPosition)">
+            <summary>
+            Creates a new toolbar with the specified name and position.
+            </summary>
+            <param name="name">The name of the new toolbar.</param>
+            <param name="position">Where to place the new toolbar.</param>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.ToolbarManager.DeleteToolbar(System.String)">
+            <summary>
+            Deleted the toolbar with the specified name.
+            </summary>
+            <param name="name">The name of the toolbar to delete.</param>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.ToolbarManager.GetButtonCount(System.String)">
+            <summary>
+            Returns the number of buttons on the specified toolbar.
+            </summary>
+            <param name="toolbar">The name of the toolbar.</param>
+            <returns>The number of buttons on the specified toolbar.</returns>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.ToolbarManager.GetButtonInfo(System.String,System.Int32)">
+            <summary>
+            Returns A ToolbarButtonInfo with the details of the specified button.
+            </summary>
+            <param name="toolbar">The name of the toolbar that the button is on.</param>
+            <param name="index">The index of the button.</param>
+            <returns>A <c>ToolbarButtonInfo</c> instance which describes the button.</returns>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.ToolbarManager.AddButton(System.String,Laserfiche.ClientAutomation.ToolbarButtonInfo,System.Int32)">
+            <summary>
+            Add a button to the toolbar.
+            </summary>
+            <param name="toolbar">The name of the toolbar to add the button to.</param>
+            <param name="buttonInfo">A <c>ToolbarButtonInfo</c> instance that defines the button.</param>
+            <param name="position">The index in the toolbar to insert the button.</param>
+        </member>
+        <member name="M:Laserfiche.ClientAutomation.ToolbarManager.RemoveButton(System.String,System.Int32)">
+            <summary>
+            Remove a button from the toolbar.
+            </summary>
+            <param name="toolbar">The name of the toolbar where the button is located.</param>
+            <param name="id">The ID of the button to remove.</param>
+        </member>
+    </members>
+</doc>
