@@ -134,6 +134,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="models\ApiResponse.cs" />
+    <Compile Include="models\JsonResponse.cs" />
     <Compile Include="OcrClient.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

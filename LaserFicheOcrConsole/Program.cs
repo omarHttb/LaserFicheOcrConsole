@@ -16,8 +16,11 @@ namespace LaserFicheOcrConsole
 {
     internal class Program
     {
+
         static async Task Main(string[] args)
         {
+            JsonResponse jsonResponse = new JsonResponse(); 
+
             var config = new ConfigurationBuilder()
                 .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
@@ -32,15 +35,15 @@ namespace LaserFicheOcrConsole
 
             try
             {
-                if (args.Length == 0)
-                {
-                    Console.WriteLine("FAIL: No entryId provided");
-                    return;
-                }
+                //if (args.Length == 0)
+                //{
+                //    Console.WriteLine("FAIL: No entryId provided");
+                //    return;
+                //}
 
-                int entryId = int.Parse(args[0]);
+                //int entryId = int.Parse(args[0]);
 
-                //int entryId = 81;
+                int entryId = 81;
 
                 RepositoryRegistration repository = new RepositoryRegistration(serverName, repoName);
 
@@ -50,12 +53,49 @@ namespace LaserFicheOcrConsole
 
                     DocumentExporter documentExporter = new DocumentExporter();
 
+                    EntryInfo entry = Entry.GetEntryInfo(entryId, session);
+
+                    if (entry == null)
+                    {
+                        jsonResponse.data = "FAIL: Entry not found";
+                        jsonResponse.success = false;
+                        Console.WriteLine(JsonSerializer.Serialize(jsonResponse));
+                        return;
+                    }
+
+                    if (entry.EntryType != EntryType.Document)
+                    {
+                        jsonResponse.data = "FAIL: Entry is not a document";
+                        jsonResponse.success = false;
+                        Console.WriteLine(JsonSerializer.Serialize(jsonResponse));
+                        return;
+                    }
+
+
                     DocumentInfo doc = new DocumentInfo(entryId, session);
 
 
                     IDocumentContents documentContents = doc as IDocumentContents;
 
+                    if (documentContents == null)
+                    {
+                        jsonResponse.data = "FAIL: Document has no content";
+                        jsonResponse.success = false;
+                        Console.WriteLine(JsonSerializer.Serialize(jsonResponse));
+
+                        return;
+                    }
+
                     PageSet pageSet = new PageSet();
+
+                    //if (doc.PageCount == 0)
+                    //{
+                    //    jsonResponse.data = "FAIL: Document has no pages";
+                    //    jsonResponse.success = false;
+                    //    Console.WriteLine(JsonSerializer.Serialize(jsonResponse));
+
+                    //    return;
+                    //}
 
                     for (int i = 1; i <= doc.PageCount; i++)
                     {
@@ -73,15 +113,15 @@ namespace LaserFicheOcrConsole
 
                     File.WriteAllText($@"C:\extractedText\{Guid.NewGuid()}.txt", extractedText.markdown_content);
 
-                    File.Delete(filePath);
+                
+                    File.Delete(filePath); 
+              
 
-                    var result = new
-                    {
-                        success = true,
-                        data = extractedText.markdown_content
-                    };
 
-                    Console.WriteLine(JsonSerializer.Serialize(result));
+                    jsonResponse.data = extractedText.markdown_content;
+                    jsonResponse.success = true;
+
+                    Console.WriteLine(JsonSerializer.Serialize(jsonResponse));
                 }
 
 
