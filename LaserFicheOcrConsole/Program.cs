@@ -19,7 +19,7 @@ namespace LaserFicheOcrConsole
 
         static async Task Main(string[] args)
         {
-            JsonResponse jsonResponse = new JsonResponse(); 
+            JsonResponse jsonResponse = new JsonResponse();
 
             var config = new ConfigurationBuilder()
                 .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
@@ -35,15 +35,23 @@ namespace LaserFicheOcrConsole
 
             try
             {
-                if (args.Length == 0)
+                //if (args.Length == 0)
+                //{
+                //    Console.WriteLine("FAIL: No entryId provided");
+                //    return;
+                //}
+
+                //int entryId = int.Parse(args[0]);
+
+                int entryId = 0;
+
+                Console.WriteLine("Please enter the entry ID: ");
+                string input = Console.ReadLine();
+                if (!int.TryParse(input, out entryId))
                 {
-                    Console.WriteLine("FAIL: No entryId provided");
+                    Console.WriteLine("FAIL: Invalid entry ID");
                     return;
                 }
-
-                int entryId = int.Parse(args[0]);
-
-                //int entryId = 81;
 
                 RepositoryRegistration repository = new RepositoryRegistration(serverName, repoName);
 
@@ -59,7 +67,8 @@ namespace LaserFicheOcrConsole
                     {
                         jsonResponse.data = "FAIL: Entry not found";
                         jsonResponse.success = false;
-                        Console.WriteLine(JsonSerializer.Serialize(jsonResponse));
+                        Console.WriteLine("Success: " + jsonResponse.success);
+                        Console.WriteLine(jsonResponse.data);
                         return;
                     }
 
@@ -67,7 +76,8 @@ namespace LaserFicheOcrConsole
                     {
                         jsonResponse.data = "FAIL: Entry is not a document";
                         jsonResponse.success = false;
-                        Console.WriteLine(JsonSerializer.Serialize(jsonResponse));
+                        Console.WriteLine("Success: " + jsonResponse.success);
+                        Console.WriteLine(jsonResponse.data);
                         return;
                     }
 
@@ -81,8 +91,8 @@ namespace LaserFicheOcrConsole
                     {
                         jsonResponse.data = "FAIL: Document has no content";
                         jsonResponse.success = false;
-                        Console.WriteLine(JsonSerializer.Serialize(jsonResponse));
-
+                        Console.WriteLine("Success: " + jsonResponse.success);
+                        Console.WriteLine(jsonResponse.data);
                         return;
                     }
 
@@ -104,6 +114,8 @@ namespace LaserFicheOcrConsole
 
                     string filePath = $@"{filepath}\{Guid.NewGuid()}.pdf";
 
+                    Console.WriteLine("Fetching Data...");
+
                     documentExporter.ExportPdf(documentContents, pageSet, PdfExportOptions.None, filePath);
 
                     ApiResponse extractedText = await client.ExtractText(filePath);
@@ -113,15 +125,26 @@ namespace LaserFicheOcrConsole
 
                     File.WriteAllText($@"C:\extractedText\{Guid.NewGuid()}.txt", extractedText.markdown_content);
 
-                
-                    File.Delete(filePath); 
-              
+
+                    //File.Delete(filePath); 
+
 
 
                     jsonResponse.data = extractedText.markdown_content;
                     jsonResponse.success = true;
 
-                    Console.WriteLine(JsonSerializer.Serialize(jsonResponse));
+                    Console.WriteLine("\n\nOK!");
+
+                    Console.ForegroundColor = ConsoleColor.Green;
+
+
+                    Console.WriteLine("Success: " + jsonResponse.success);
+
+                    Console.WriteLine("data: " + jsonResponse.data, Console.ForegroundColor);
+
+                    Console.ForegroundColor= ConsoleColor.White;
+                    Console.WriteLine("\n \na txt file has been generated in the following path:");
+                    Console.WriteLine("" + filePath);
                 }
 
 
