@@ -1,9 +1,12 @@
-﻿using Laserfiche.DocumentServices;
+﻿
+using Laserfiche.DocumentServices;
 using Laserfiche.RepositoryAccess;
 using Laserfiche.RepositoryAccess.Common;
 using LaserFicheOcrConsole.models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.Json;
+using PdfSharp.Pdf;
+using PdfSharp.Pdf.IO;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -33,6 +36,24 @@ namespace LaserFicheOcrConsole
             string filepath = config["Laserfiche:exportedFilePath"]?.Trim();
             OcrClient client = new OcrClient();
 
+            if (!Directory.Exists(@"C:\logs"))
+            {
+
+                Directory.CreateDirectory(@"C:\\logs");
+
+            }
+            if (!Directory.Exists(@"C:\temp"))
+            {
+
+                Directory.CreateDirectory(@"C:\\temp");
+
+            }
+            if (!Directory.Exists(@"C:\extractedText"))
+            {
+
+                Directory.CreateDirectory(@"C:\\extractedText");
+            }
+
             try
             {
                 //if (args.Length == 0)
@@ -50,6 +71,9 @@ namespace LaserFicheOcrConsole
                 if (!int.TryParse(input, out entryId))
                 {
                     Console.WriteLine("FAIL: Invalid entry ID");
+                    Console.WriteLine("\n\nPress enter to exit console...");
+
+                    Console.ReadLine();
                     return;
                 }
 
@@ -69,6 +93,10 @@ namespace LaserFicheOcrConsole
                         jsonResponse.success = false;
                         Console.WriteLine("Success: " + jsonResponse.success);
                         Console.WriteLine(jsonResponse.data);
+                        Console.WriteLine("\n\nPress enter to exit console...");
+
+                        Console.ReadLine();
+
                         return;
                     }
 
@@ -78,11 +106,17 @@ namespace LaserFicheOcrConsole
                         jsonResponse.success = false;
                         Console.WriteLine("Success: " + jsonResponse.success);
                         Console.WriteLine(jsonResponse.data);
+                        Console.WriteLine("\n\nPress enter to exit console...");
+
+                        Console.ReadLine();
+
                         return;
                     }
 
 
                     DocumentInfo doc = new DocumentInfo(entryId, session);
+
+                    
 
 
                     IDocumentContents documentContents = doc as IDocumentContents;
@@ -93,6 +127,10 @@ namespace LaserFicheOcrConsole
                         jsonResponse.success = false;
                         Console.WriteLine("Success: " + jsonResponse.success);
                         Console.WriteLine(jsonResponse.data);
+                        Console.WriteLine("\n\nPress enter to exit console...");
+
+                        Console.ReadLine();
+
                         return;
                     }
 
@@ -102,7 +140,8 @@ namespace LaserFicheOcrConsole
                     //{
                     //    jsonResponse.data = "FAIL: Document has no pages";
                     //    jsonResponse.success = false;
-                    //    Console.WriteLine(JsonSerializer.Serialize(jsonResponse));
+                    //    Console.WriteLine("Success: " + jsonResponse.success);
+                    //    Console.WriteLine(jsonResponse.data);
 
                     //    return;
                     //}
@@ -112,18 +151,35 @@ namespace LaserFicheOcrConsole
                         pageSet.AddPage(i);
                     }
 
-                    string filePath = $@"{filepath}\{Guid.NewGuid()}.pdf";
+                    string ElecDocFilePath = $@"{filepath}\{Guid.NewGuid()}.pdf";
+
+                    string ImageFilePath = $@"{filepath}\{Guid.NewGuid()}.pdf";
 
                     Console.WriteLine("Fetching Data...");
 
-                    documentExporter.ExportPdf(documentContents, pageSet, PdfExportOptions.None, filePath);
+                    documentExporter.ExportPdf(documentContents, pageSet, PdfExportOptions.None, ImageFilePath);
 
-                    ApiResponse extractedText = await client.ExtractText(filePath);
+                    documentExporter.ExportElecDoc(documentContents, ElecDocFilePath);
+
+                    string mergedPDF = $@"{filepath}\merged.pdf";
+
+
+                    MergePDFs(mergedPDF, new string[] { ElecDocFilePath, ImageFilePath });
+
+                    Console.WriteLine("Ocring Data...");
+
+
+                    ApiResponse extractedText = await client.ExtractText(mergedPDF);
+
+
 
                     WriteToDocumentTxt(entryId, session, extractedText.markdown_content);
 
 
-                    File.WriteAllText($@"C:\extractedText\{Guid.NewGuid()}.txt", extractedText.markdown_content);
+                    string extractedTextFilePath = $@"C:\extractedText\{Guid.NewGuid()}.txt";
+
+                    File.WriteAllText(extractedTextFilePath, extractedText.markdown_content);
+
 
 
                     //File.Delete(filePath); 
@@ -140,27 +196,62 @@ namespace LaserFicheOcrConsole
 
                     Console.WriteLine("Success: " + jsonResponse.success);
 
-                    Console.WriteLine("data: " + jsonResponse.data, Console.ForegroundColor);
+                    Console.WriteLine("data: " + jsonResponse.data);
 
                     Console.ForegroundColor= ConsoleColor.White;
                     Console.WriteLine("\n \na txt file has been generated in the following path:");
-                    Console.WriteLine("" + filePath);
+                    Console.WriteLine(extractedTextFilePath);
+
+                    Console.WriteLine("\n\nPress enter to exit console...");
+                    Console.ReadLine();
+
                 }
 
 
             }
             catch (Exception ex)
             {
+
+        
+
                 string filePath = $@"C:\logs\{Guid.NewGuid()}-{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.txt";
 
                 File.WriteAllText(filePath, ex.ToString());
 
+                jsonResponse.success = false;
                 Console.WriteLine("FAIL: " + ex.Message);
+
+                Console.WriteLine("\n\nPress enter to exit console...");
+
+
+                Console.ReadLine();
             }
 
         }
 
-
+        static void MergePDFs(string targetPath, params string[] sourceFiles)
+        {
+            // Create the output document
+            using (PdfDocument outputDocument = new PdfDocument())
+            {
+                foreach (string file in sourceFiles)
+                {
+                    // Open the source document in Import mode
+                    using (PdfDocument inputDocument = PdfReader.Open(file, PdfDocumentOpenMode.Import))
+                    {
+                        // Iterate through pages and add to output
+                        int count = inputDocument.PageCount;
+                        for (int idx = 0; idx < count; idx++)
+                        {
+                            PdfPage page = inputDocument.Pages[idx];
+                            outputDocument.AddPage(page);
+                        }
+                    }
+                }
+                // Save the finished document
+                outputDocument.Save(targetPath);
+            }
+        }
 
         private static void WriteToDocumentTxt(int entryId, Session session, string extractedOCRText)
         {
